@@ -34,11 +34,12 @@ function writeQuestion($file, $question, $responses, $numOk) {
     if (count($responses) == 0) {
         return;
     }
+    $question = str_replace('###', '::', $question);
     fwrite($file, $question . PHP_EOL);
     $percent = percent($numOk);
 
     foreach ($responses as $response) {
-        $line = str_replace('- [ ] ', '~%-100%', $response);
+        $line = str_replace('- [ ] ', '~%0%', $response);
         if (strpos($line, '- [x] ') !== FALSE) {
             $line = str_replace('- [x] ', $percent, $response);
         }
