@@ -39,9 +39,16 @@ function writeQuestion($file, $question, $responses, $numOk) {
     $percent = percent($numOk);
 
     foreach ($responses as $response) {
-        $line = str_replace('- [ ] ', '~%0%', $response);
-        if (strpos($line, '- [x] ') !== FALSE) {
-            $line = str_replace('- [x] ', $percent, $response);
+        if ($numOk > 1) {
+            $line = str_replace('- [ ] ', '~%0%', $response);
+            if (strpos($line, '- [x] ') !== FALSE) {
+                $line = str_replace('- [x] ', $percent, $response);
+            }
+        } else {
+            $line = str_replace('- [ ] ', '~', $response);
+            if (strpos($line, '- [x] ') !== FALSE) {
+                $line = str_replace('- [x] ', '=', $response);
+            }
         }
         fwrite($file, "\t" . $line . PHP_EOL);
     }
