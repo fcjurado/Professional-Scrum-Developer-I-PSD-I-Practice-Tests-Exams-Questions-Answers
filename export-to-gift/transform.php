@@ -40,7 +40,8 @@ function writeQuestion($file, $question, $responses, $numOk) {
 
     foreach ($responses as $response) {
         if ($numOk > 1) {
-            $line = str_replace('- [ ] ', '~%0%', $response);
+            $line = str_replace('- [ ] ', $percent, $response);
+            $line = str_replace('~%', '~%-', $line);
             if (strpos($line, '- [x] ') !== FALSE) {
                 $line = str_replace('- [x] ', $percent, $response);
             }
